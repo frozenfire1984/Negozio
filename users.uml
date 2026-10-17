@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>108b361b-52b9-48c2-8979-04b36ef4ed14.TABLE:main.users</OriginalElement>
+  <nodes>
+    <node x="24.141904761904755" y="1045.9604988662134">108b361b-52b9-48c2-8979-04b36ef4ed14.TABLE:main.items</node>
+    <node x="-185.85401360544216" y="361.9063945578231">108b361b-52b9-48c2-8979-04b36ef4ed14.TABLE:main.users</node>
+    <node x="402.5014965986395" y="547.2911111111111">108b361b-52b9-48c2-8979-04b36ef4ed14.TABLE:main.shopping_lists</node>
+    <node x="-308.37333333333333" y="701.4443990929706">108b361b-52b9-48c2-8979-04b36ef4ed14.TABLE:main.categories</node>
+    <node x="468.5014965986395" y="-13.030702947845867">108b361b-52b9-48c2-8979-04b36ef4ed14.TABLE:main.shops</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="108b361b-52b9-48c2-8979-04b36ef4ed14.TABLE:main.items" target="108b361b-52b9-48c2-8979-04b36ef4ed14.TABLE:main.categories" relationship="REFERENCES">
+      <point x="-60.25" y="-215.5" />
+      <point x="84.39190476190475" y="984.2984126984127" />
+      <point x="-211.37333333333333" y="984.2984126984127" />
+      <point x="0.0" y="77.5" />
+    </edge>
+    <edge source="108b361b-52b9-48c2-8979-04b36ef4ed14.TABLE:main.categories" target="108b361b-52b9-48c2-8979-04b36ef4ed14.TABLE:main.users" relationship="REFERENCES">
+      <point x="0.0" y="-77.5" />
+      <point x="-211.37333333333333" y="834.0" />
+      <point x="-161.47901360544216" y="834.0" />
+      <point x="-73.125" y="112.0" />
+    </edge>
+    <edge source="108b361b-52b9-48c2-8979-04b36ef4ed14.TABLE:main.items" target="108b361b-52b9-48c2-8979-04b36ef4ed14.TABLE:main.shopping_lists" relationship="REFERENCES">
+      <point x="60.25" y="-215.5" />
+      <point x="204.89190476190475" y="984.2984126984127" />
+      <point x="504.5014965986395" y="984.2984126984127" />
+      <point x="0.0" y="169.5" />
+    </edge>
+    <edge source="108b361b-52b9-48c2-8979-04b36ef4ed14.TABLE:main.shopping_lists" target="108b361b-52b9-48c2-8979-04b36ef4ed14.TABLE:main.users" relationship="REFERENCES">
+      <point x="-76.5" y="-169.5" />
+      <point x="428.0014965986395" y="487.3177324263038" />
+      <point x="-112.72901360544216" y="487.3177324263038" />
+      <point x="-24.375" y="112.0" />
+    </edge>
+    <edge source="108b361b-52b9-48c2-8979-04b36ef4ed14.TABLE:main.shopping_lists" target="108b361b-52b9-48c2-8979-04b36ef4ed14.TABLE:main.shops" relationship="REFERENCES">
+      <point x="76.5" y="-169.5" />
+      <point x="0.0" y="169.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.7803652321630804" showDependencies="false" x="316.8117913832199" y="914.12" />
+  <SelectedNodes>
+    <node>108b361b-52b9-48c2-8979-04b36ef4ed14.TABLE:main.items</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Comments</Category>
+    <Category>Key columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+
