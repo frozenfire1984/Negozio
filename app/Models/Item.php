@@ -16,7 +16,6 @@ class Item extends Model
         'note',
         'shopping_list_id',
         'category_id',
-        'status',
         'quantity',
         'weight',
         'estimated_price',
@@ -24,6 +23,19 @@ class Item extends Model
         'currency',
         'photo_path',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'is_priority' => 'boolean',
+            'quantity' => 'integer',
+            'weight' => 'decimal:3',
+            'estimated_price' => 'decimal:2',
+            'price' => 'decimal:2',
+            'is_unplanned' => 'boolean',
+            'is_added_by_other_user' => 'boolean',
+        ];
+    }
 
     public function category(): BelongsTo {
         return $this->belongsTo(Category::class);

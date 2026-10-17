@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ShoppingList extends Model
 {
-
     use HasFactory;
 
     protected $fillable = [
@@ -20,6 +19,14 @@ class ShoppingList extends Model
         'mode',
         'notes',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'date_for_future' => 'date',
+            'editable_if_shared' => 'boolean'
+        ];
+    }
 
     public function user(): BelongsTo {
         return $this->belongsTo(User::class);

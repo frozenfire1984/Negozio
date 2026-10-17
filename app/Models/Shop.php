@@ -23,6 +23,13 @@ class Shop extends Model
         'notes_for_week_schedule',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'week_schedule' => 'array'
+        ];
+    }
+
     public function shoppingLists(): HasMany {
         return $this->hasMany(ShoppingList::class);
     }
