@@ -2,14 +2,24 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ShoppingListController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/shopping-lists', function () {
-    return view('shopping-lists.index');
+
+Route::prefix('/shopping-lists')->middleware('auth')->group(function() {
+    Route::get('/', [ShoppingListController::class, 'index'])->name('shopping-lists.index');
+    Route::get('/{id}/show', [ShoppingListController::class, 'show'])->name('shopping-lists.show');
+    Route::get('/create', [ShoppingListController::class, 'create'])->name('shopping-lists.create');
+    Route::post('/', [ShoppingListController::class, 'store'])->name('shopping-lists.store');
+    Route::get('/{id}/edit', [ShoppingListController::class, 'edit'])->name('shopping-lists.edit');
+    Route::put('/{id}', [ShoppingListController::class, 'update'])->name('shopping-lists.update');
+    Route::get('/{id}/delete', [ShoppingListController::class, 'delete'])->name('shopping-lists.delete');
+    Route::delete('/{id}', [ShoppingListController::class, 'destroy'])->name('shopping-lists.destroy');
 });
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
