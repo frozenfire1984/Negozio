@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ShoppingList;
 use App\Models\Shop;
+use Illuminate\Support\Facades\Gate;
 
 class ShoppingListController extends Controller
 {
     public function index()
     {
-        $lists = ShoppingList::with('shop')->get();
+        $lists = ShoppingList::with('shop')->where('user_id', auth()->id())->get();
 
         $count = $lists->count();
         return view('shopping-lists.index', compact('lists', 'count'));
@@ -20,7 +21,7 @@ class ShoppingListController extends Controller
     {
         $list = ShoppingList::findOrFail($id);
 
-        //$this->authorize('view', $item);
+        Gate::authorize('show', $list);
 
         return view('shopping-lists.show', [
             'list' => $list,
@@ -55,6 +56,8 @@ class ShoppingListController extends Controller
     {
         $list = ShoppingList::findOrFail($id);
 
+        Gate::authorize('update', $list);
+
         return view('shopping-lists.edit', [
             'list' => $list,
         ]);
@@ -63,8 +66,9 @@ class ShoppingListController extends Controller
 
     public function update(Request $request, string $id)
     {
-
         $list = ShoppingList::findOrFail($id);
+
+        Gate::authorize('update', $list);
 
         $request->validate([
             'name' => 'required|string|min:2|max:50',
@@ -74,6 +78,7 @@ class ShoppingListController extends Controller
         $list->update([
             'name' => $request->name,
             'notes' => $request->notes,
+            //'user_id' => auth()->id(),
         ]);
         return redirect()->route('shopping-lists.index')->with('success', 'Лист успешно обновлен');
     }
@@ -82,6 +87,8 @@ class ShoppingListController extends Controller
     public function delete(string $id)
     {
         $list = ShoppingList::findOrFail($id);
+
+        Gate::authorize('delete', $list);
 
         return view('shopping-lists.delete', [
             'list' => $list,
@@ -92,7 +99,7 @@ class ShoppingListController extends Controller
     {
         $list = ShoppingList::findOrFail($id);
 
-        //$this->authorize('delete', $item);
+        Gate::authorize('delete', $list);
 
         $list->delete();
 
