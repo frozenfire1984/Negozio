@@ -34,7 +34,6 @@ class ShoppingListController extends Controller
         return view('shopping-lists.create');
     }
 
-
     public function store(Request $request)
     {
         $request->validate([
@@ -50,7 +49,6 @@ class ShoppingListController extends Controller
         ]);
         return redirect()->route('shopping-lists.index')->with('success', 'Лист успешно добавлен');
     }
-
 
     public function edit(string $id)
     {
