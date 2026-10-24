@@ -1,0 +1,38 @@
+@use 'sass:list';
+
+:root {
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/* region h1-h6 */
+$headings: (h1, h2, h3, h4, h5, h6);
+$base: 2.5rem;
+$step: 0.25rem;
+
+@for $i from 1 through list.length($headings) {
+    #{list.nth($headings, $i)} {
+        font-size: $base - ($step * ($i - 1));
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 1em;
+    }
+}
+/* endregion */
+
+a:not(.btn) {
+    color: var(--color-accent-dark);
+    text-decoration: underline;
+}

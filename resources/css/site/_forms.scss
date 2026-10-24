@@ -1,3 +1,84 @@
-.s-list-form {
+form {
+  margin: 0;
+}
 
+.form-container {
+  display: grid;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-fieldset {
+  display: grid;
+  flex-direction: column;
+  gap: inherit;
+  border-color: var(--color-border-soft);
+  border-width: 1px;
+  border-radius: var(--border-radius-sm);
+  padding: 1rem;
+
+  &__title {
+    font-weight: 700;
+  }
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+  gap: 4px;
+}
+
+.form-err {
+  font-style: italic;
+  color: red;
+}
+
+.form-input {
+  --color-shadow:  color-mix(in srgb, var(--color-second) 30%, transparent);
+  border: 1px var(--color-border) solid;
+  padding: 12px 16px;
+  border-radius: 6px;
+  width: min(100%, 500px);
+
+  &:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 5px var(--color-shadow);
+    outline: none;
+  }
+}
+
+.form-textarea {
+  @extend .form-input;
+  flex: 1;
+  resize: none;
+  min-height: 5em;
+  max-height: 10em;
+  field-sizing: content;
+
+  &_tale {
+    min-height: 10em;
+    max-height: 20em;
+  }
+}
+
+:is(input, select):disabled {
+  opacity: .7;
+}
+
+.form-radio-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+input[type=checkbox], input[type=radio] {
+  cursor: pointer;
+}
+
+label:has(input[type=checkbox], input[type=radio]) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }

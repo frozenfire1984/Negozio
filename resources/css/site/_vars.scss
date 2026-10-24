@@ -1,0 +1,15 @@
+:root {
+  --color-border: #ccc;
+  --color-border-soft: color-mix(in oklab, var(--color-border) 50%, #fff);
+  --color-accent: #926EAE;
+  --color-accent-hover: color-mix(in oklab, var(--color-accent) 80%, black);
+  --color-second: #C8A2C8;
+  --color-accent-dark: color-mix(in oklab, var(--color-accent) 70%, black);
+  --color-pale: #ececec;
+
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
+
+  --dur: .3s;
+}

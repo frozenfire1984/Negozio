@@ -1,12 +1,14 @@
 <x-site-layout>
-    <div class="s-list-details">
-        Delete {{ $list->name }}?
+    <div class="stack">
+        <strong>Delete <em>"{{ $list->name }}"</em>?</strong>
         
         <form method="POST" action="{{ route('shopping-lists.destroy', ['id' => $list->id]) }}">
             @csrf
             @method('DELETE')
+            <div class="btn-group">
             <button class="btn" type="submit">Delete</button>
-            <a href="{{ url()->previous() }}">Cancel</a>
+            <a class="btn btn_wire" href="{{ url()->previous() }}">Cancel</a>
+            </div>
         </form>
     </div>
 </x-site-layout>

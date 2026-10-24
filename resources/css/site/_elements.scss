@@ -1,3 +1,72 @@
-.btn {
+.container {
+  margin: 0 auto;
+  width: min(100%, 1024px);
+  padding-inline: 12px;
+}
 
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  padding-left: 0;
+  list-style-position: inside;
+}
+
+.btn-group {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  gap: .3em;
+  background-color: var(--color-accent);
+  border: 1px var(--color-accent) solid;
+  color: #fff;
+  padding: .5em .7em;
+  border-radius: var(--border-radius-sm);
+  width: fit-content;
+  cursor: pointer;
+  text-decoration: none;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background-color var(--dur) linear;
+  }
+
+  &:hover, &:active {
+    background-color: var(--color-accent-hover);
+  }
+
+  &_wire {
+    background-color: #fff;
+    border-color: var(--color-border);
+    color: var(--color-accent-dark);
+
+    &:hover, &:active {
+      background-color: var(--color-pale);
+    }
+  }
+
+  svg {
+    flex-shrink: 0;
+    width: .9em;
+    height: .9em;
+  }
+}
+
+.flash-msg {
+  --bg: color-mix(in srgb, var(--color-second) 10%, transparent);
+  border: 1px var(--color-second) solid;
+  padding: 1em;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--bg);
+  color: var(--color-accent-dark);
+  font-size: .9rem;
+}
+
+hr {
+  border-top: 1px var(--color-border-soft) solid;
+  border-bottom: none;
 }

@@ -1,11 +1,11 @@
 <x-site-layout>
     <div>
-        <form class="s-list-form" method="POST" action="{{ route('shopping-lists.update', ['id' => $list->id]) }}">
+        <form class="form-container " method="POST" action="{{ route('shopping-lists.update', ['id' => $list->id]) }}">
             @method('PUT')
             
-            <fieldset class="s-list-fieldset">
+            <fieldset class="form-fieldset">
                 
-                <legend class="s-list-fieldset__title">Edit List</legend>
+                <legend class="form-fieldset__title">Edit List</legend>
                 
                 @if(session('success'))
                     <div>{{ session('success') }}</div>
@@ -13,25 +13,32 @@
                 
                 @csrf
                 
-                <div>
+                <div class="form-row">
                     <label for="name">Имя</label>
-                    <input type="text" name="name" id="name" value="{{ old('name', $list->name ?? '') }}">
+                    <input list="dev-data" class="form-input" type="text" name="name" id="name" value="{{ old('name', $list->name ?? '') }}" autocomplete="off">
                     
                     @error('name')
                     <div class="form-err">{{ $message }}</div>
                     @enderror
+                    
+                    <datalist id="dev-data">
+                        <option>Список покупок для </option>
+                    </datalist>
                 </div>
                 
-                <div>
+                <div class="form-row">
                     <label for="notes">Заметки</label>
-                    <textarea name="notes" id="notes">{{ old('notes', $list->notes ?? '') }}</textarea>
+                    <textarea class="form-textarea" name="notes" id="notes">{{ old('notes', $list->notes ?? '') }}</textarea>
                     
                     @error('notes')
                     <div class="form-err">{{ $message }}</div>
                     @enderror
                 </div>
                 
-                <button class="btn" type="submit">Update</button>
+                <div class="btn-group">
+                    <button class="btn" type="submit">Update</button>
+                    <a class="btn btn_wire" href="{{ url()->previous() }}">Cancel</a>
+                </div>
             </fieldset>
         </form>
     </div>

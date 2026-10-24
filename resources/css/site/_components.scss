@@ -1,3 +1,22 @@
+.header {
+  border-bottom: 1px var(--color-border) solid;
+  padding: 16px 0;
+}
+
+.footer {
+  border-top: 1px var(--color-border) solid;
+  padding: 16px 0;
+}
+
+.nav {
+  ul {
+    @include ul-reset;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    list-style: none;
+  }
+}
 
 
 .s-list {
