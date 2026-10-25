@@ -3,7 +3,7 @@
         <form class="form-container" method="POST" action="{{ route('shopping-lists.store') }}">
             <fieldset class="form-fieldset">
                 
-                <legend class="form-fieldset__title">New Item</legend>
+                <legend class="form-fieldset__title">Новый список покупок</legend>
                 
                 @csrf
                 
@@ -30,8 +30,8 @@
                 </div>
                 
                 <div class="btn-group">
-                    <button class="btn" type="submit">Create new</button>
-                    <a class="btn btn_wire" href="{{ url()->previous() }}">Cancel</a>
+                    <button class="btn" type="submit">Создать</button>
+                    <a class="btn btn_wire" href="{{ url()->previous() }}">Отмена</a>
                 </div>
             </fieldset>
         </form>

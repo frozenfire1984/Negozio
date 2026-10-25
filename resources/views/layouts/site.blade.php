@@ -18,10 +18,16 @@
             <div class="container">
                 <nav class="nav">
                     <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/shopping-lists">Shopping List</a></li>
-                        <li><a href="/shops">Shops</a></li>
-                        <li><a href="/login" target="_blank">Login</a></li>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="{{ route('shopping-lists.index') }}">Список покупок</a></li>
+                        <li><a href="{{ route('shops.index') }}">Магазины</a></li>
+                        <li>
+                        @auth
+                            <a href="{{ route('dashboard') }}" target="_blank">Профиль</a>
+                        @else
+                            <a href="{{ route('login') }}" target="_blank">Войти</a>
+                        @endauth
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -33,7 +39,7 @@
         </main>
         <footer class="footer">
             <div class="container">
-                {{ config('app.name', 'Laravel') }}
+                {{ config('app.name', 'Laravel') }} · v{{ config('app.version') }}
             </div>
         </footer>
     </body>

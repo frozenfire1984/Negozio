@@ -1,9 +1,9 @@
 <x-site-layout>
     <div class="stack">
         <div class="btn-group">
-            <a class="btn" href="{{ route('shops.edit', ['id' => $shop->id ]) }}">Edit this shop</a>
-            <a class="btn btn_wire" href="{{ route('shops.delete', ['id' => $shop->id ]) }}">Remove this shop</a>
-            <a class="btn btn_wire" href="{{ route('shops.index') }}">Back to shops</a>
+            <a class="btn" href="{{ route('shops.edit', ['id' => $shop->id ]) }}">Редактировать магазин</a>
+            <a class="btn btn_wire" href="{{ route('shops.delete', ['id' => $shop->id ]) }}">Удалить магазин</a>
+            <a class="btn btn_wire" href="{{ route('shops.index') }}">Обратно к магазинам</a>
         </div>
         <hr>
         <strong>{{ $shop->name }}</strong>
@@ -15,10 +15,10 @@
         <hr>
         
         @if($shop->address)
-        <dl>
-            <dt>Address:</dt>
-            <dd>{{ $shop?->address }}</dd>
-        </dl>
+            <dl>
+                <dt>Адрес:</dt>
+                <dd>{{ $shop?->address }}</dd>
+            </dl>
         @endif
     </div>
 </x-site-layout>

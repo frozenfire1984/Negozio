@@ -4,13 +4,11 @@ form {
 
 .form-container {
   display: grid;
-  flex-direction: column;
   gap: 1.2rem;
 }
 
 .form-fieldset {
   display: grid;
-  flex-direction: column;
   gap: inherit;
   border-color: var(--color-border-soft);
   border-width: 1px;
@@ -37,8 +35,8 @@ form {
 .form-input {
   --color-shadow:  color-mix(in srgb, var(--color-second) 30%, transparent);
   border: 1px var(--color-border) solid;
-  padding: 12px 16px;
-  border-radius: 6px;
+  padding: .6em .75em;
+  border-radius: var(--border-radius-md);
   width: min(100%, 500px);
 
   &:focus {
@@ -70,7 +68,7 @@ form {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 1rem;
 }
 
 input[type=checkbox], input[type=radio] {
@@ -80,5 +78,5 @@ input[type=checkbox], input[type=radio] {
 label:has(input[type=checkbox], input[type=radio]) {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 1rem;
 }

@@ -1,3 +1,12 @@
+a:not(.btn) {
+  color: var(--color-accent-dark);
+  text-decoration: underline;
+
+  &:hover, &:active {
+    color: var(--color-accent);
+  }
+}
+
 .container {
   margin: 0 auto;
   width: min(100%, 1024px);
@@ -8,12 +17,16 @@
   display: flex;
   flex-direction: column;
   gap: .75rem;
-  padding-left: 0;
-  list-style-position: inside;
+  padding-left: 1rem;
+
+  li::marker {
+    color: var(--color-accent);
+  }
 }
 
 .btn-group {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin-top: 8px;
 }

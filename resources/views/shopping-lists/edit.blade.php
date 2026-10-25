@@ -5,7 +5,7 @@
             
             <fieldset class="form-fieldset">
                 
-                <legend class="form-fieldset__title">Edit List</legend>
+                <legend class="form-fieldset__title">Редактировать список покупок</legend>
                 
                 @if(session('success'))
                     <div>{{ session('success') }}</div>
@@ -36,8 +36,8 @@
                 </div>
                 
                 <div class="btn-group">
-                    <button class="btn" type="submit">Update</button>
-                    <a class="btn btn_wire" href="{{ url()->previous() }}">Cancel</a>
+                    <button class="btn" type="submit">Сохранить</button>
+                    <a class="btn btn_wire" href="{{ url()->previous() }}">Отмена</a>
                 </div>
             </fieldset>
         </form>

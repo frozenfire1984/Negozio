@@ -1,13 +1,11 @@
 <x-site-layout>
-    
     <div class="stack">
-        
-        <a class="btn" href="{{ route('shops.create') }}">Create new shop</a>
+        <a class="btn" href="{{ route('shops.create') }}">Создать магазин</a>
         
         @if(session('success'))
             <div class="flash-msg">{{ session('success') }}</div>
         @endif
-        
+
         <ul class="list">
             @forelse($shops as $shop)
                 <li class="s-list__item">
@@ -16,7 +14,7 @@
                     </a>
                 </li>
             @empty
-                <li>Empty</li>
+                <li>Список магазинов пуст</li>
             @endforelse
         </ul>
     </div>

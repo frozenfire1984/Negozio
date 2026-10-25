@@ -43,7 +43,7 @@ class ShopController extends Controller
             'display_name' => $request->display_name,
             'address' => $request->address,
         ]);
-        return redirect()->route('shops.index')->with('success', 'Магазин успешно добавлен');
+        return redirect()->route('shops.index')->with('success', 'Магазин "' . $request->name . '" успешно добавлен');
     }
 
 
@@ -70,7 +70,7 @@ class ShopController extends Controller
             'display_name' => $request->display_name,
             'address' => $request->address,
         ]);
-        return redirect()->route('shops.index')->with('success', 'Магазин успешно обновлен');
+        return redirect()->route('shops.index')->with('success', 'Магазин "' . $request->name . '" успешно обновлен');
     }
 
     public function delete(string $id)
@@ -84,9 +84,10 @@ class ShopController extends Controller
     public function destroy(string $id)
     {
         $shop = Shop::findOrFail($id);
+        $shop_name = $shop->name;
 
         $shop->delete();
 
-        return redirect()->route('shops.index')->with('success', 'Лист успешно удален');
+        return redirect()->route('shops.index')->with('success', 'Магазин "' . $shop_name . '" успешно удален');
     }
 }

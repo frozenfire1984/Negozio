@@ -45,9 +45,8 @@ class ShoppingListController extends Controller
             'name' => $request->name,
             'notes' => $request->notes,
             'user_id' => auth()->id(),
-
         ]);
-        return redirect()->route('shopping-lists.index')->with('success', 'Лист успешно добавлен');
+        return redirect()->route('shopping-lists.index')->with('success', 'Список покупок "' . $request->name . '" успешно добавлен');
     }
 
     public function edit(string $id)
@@ -76,9 +75,8 @@ class ShoppingListController extends Controller
         $list->update([
             'name' => $request->name,
             'notes' => $request->notes,
-            //'user_id' => auth()->id(),
         ]);
-        return redirect()->route('shopping-lists.index')->with('success', 'Лист успешно обновлен');
+        return redirect()->route('shopping-lists.index')->with('success', 'Список покупок "' . $request->name . '" успешно обновлен');
     }
 
 
@@ -96,11 +94,12 @@ class ShoppingListController extends Controller
     public function destroy(string $id)
     {
         $list = ShoppingList::findOrFail($id);
+        $list_name = $list->name;
 
         Gate::authorize('delete', $list);
 
         $list->delete();
 
-        return redirect()->route('shopping-lists.index')->with('success', 'Лист успешно удален');
+        return redirect()->route('shopping-lists.index')->with('success', 'Список покупок "' . $list_name . '" успешно удален');
     }
 }
