@@ -3,11 +3,11 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShoppingListController;
+use App\Http\Controllers\ShopController;
 
 Route::get('/', function () {
     return view('welcome');
 });
-
 
 Route::prefix('/shopping-lists')->middleware('auth')->group(function() {
     Route::get('/', [ShoppingListController::class, 'index'])->name('shopping-lists.index');
@@ -20,6 +20,16 @@ Route::prefix('/shopping-lists')->middleware('auth')->group(function() {
     Route::delete('/{id}', [ShoppingListController::class, 'destroy'])->name('shopping-lists.destroy');
 });
 
+Route::prefix('/shops')->middleware('auth')->group(function() {
+    Route::get('/', [ShopController::class, 'index'])->name('shops.index');
+    Route::get('/{id}/show', [ShopController::class, 'show'])->name('shops.show');
+    Route::get('/create', [ShopController::class, 'create'])->name('shops.create');
+    Route::post('/', [ShopController::class, 'store'])->name('shops.store');
+    Route::get('/{id}/edit', [ShopController::class, 'edit'])->name('shops.edit');
+    Route::put('/{id}', [ShopController::class, 'update'])->name('shops.update');
+    Route::get('/{id}/delete', [ShopController::class, 'delete'])->name('shops.delete');
+    Route::delete('/{id}', [ShopController::class, 'destroy'])->name('shops.destroy');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
