@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Shop extends Model
@@ -21,6 +22,7 @@ class Shop extends Model
         'close_at',
         'week_schedule',
         'notes_for_week_schedule',
+        'user_id',
     ];
 
     protected function casts(): array
@@ -32,5 +34,9 @@ class Shop extends Model
 
     public function shoppingLists(): HasMany {
         return $this->hasMany(ShoppingList::class);
+    }
+
+    public function user(): BelongsTo {
+        return $this->belongsTo(User::class);
     }
 }

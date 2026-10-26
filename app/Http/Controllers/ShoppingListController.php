@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ShoppingList;
 use App\Models\Shop;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rule;
 
 class ShoppingListController extends Controller
 {
@@ -23,15 +24,15 @@ class ShoppingListController extends Controller
 
         Gate::authorize('show', $list);
 
-        return view('shopping-lists.show', [
-            'list' => $list,
-        ]);
+        return view('shopping-lists.show', compact('list'));
     }
 
 
     public function create()
     {
-        return view('shopping-lists.create');
+        $shops = Shop::where('user_id', auth()->id())->get();
+
+        return view('shopping-lists.create', compact('shops'));
     }
 
     public function store(Request $request)
@@ -39,12 +40,15 @@ class ShoppingListController extends Controller
         $request->validate([
             'name' => 'required|string|min:2|max:50',
             'notes' => 'nullable|string|max:200',
+            'shop_id' => ['nullable', Rule::exists('shops', 'id')->where('user_id', auth()->id())],
+            //'shop_id' => ['nullable', Rule::exists('shops', 'id')]
         ]);
 
         ShoppingList::create([
             'name' => $request->name,
             'notes' => $request->notes,
             'user_id' => auth()->id(),
+            'shop_id' => $request->shop_id,
         ]);
         return redirect()->route('shopping-lists.index')->with('success', 'Список покупок "' . $request->name . '" успешно добавлен');
     }
@@ -55,9 +59,9 @@ class ShoppingListController extends Controller
 
         Gate::authorize('update', $list);
 
-        return view('shopping-lists.edit', [
-            'list' => $list,
-        ]);
+        $shops = Shop::where('user_id', auth()->id())->get();
+
+        return view('shopping-lists.edit', compact('list', 'shops'));
     }
 
 
@@ -70,13 +74,16 @@ class ShoppingListController extends Controller
         $request->validate([
             'name' => 'required|string|min:2|max:50',
             'notes' => 'nullable|string|max:200',
+            'shop_id' => ['nullable', Rule::exists('shops', 'id')->where('user_id', auth()->id())],
+            //'shop_id' => ['nullable', Rule::exists('shops', 'id')]
         ]);
 
         $list->update([
             'name' => $request->name,
             'notes' => $request->notes,
+            'shop_id' => $request->shop_id
         ]);
-        return redirect()->route('shopping-lists.index')->with('success', 'Список покупок "' . $request->name . '" успешно обновлен');
+        return redirect()->route('shopping-lists.show', $list->id)->with('success', 'Список покупок "' . $request->name . '" успешно обновлен');
     }
 
 

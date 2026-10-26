@@ -6,10 +6,17 @@
             <a class="btn btn_wire" href="{{ route('shops.index') }}">Обратно к магазинам</a>
         </div>
         <hr>
-        <strong>{{ $shop->name }}</strong>
         
-        @if($shop->display_name)
-            <p>{{ $shop->display_name }}</p>
+        <div>
+            <strong>{{ $shop->name }}</strong>
+            
+            @if($shop->display_name)
+                <p>{{ $shop->display_name }}</p>
+            @endif
+        </div>
+        
+        @if(session('success'))
+            <div class="flash-msg">{{ session('success') }}</div>
         @endif
         
         <hr>

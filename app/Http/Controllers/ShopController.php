@@ -10,7 +10,7 @@ class ShopController extends Controller
 
     public function index()
     {
-        $shops = Shop::all();
+        $shops = Shop::where('user_id', auth()->id())->get();
 
         $count = $shops->count();
         return view('shops.index', compact('shops', 'count'));
@@ -42,6 +42,7 @@ class ShopController extends Controller
             'name' => $request->name,
             'display_name' => $request->display_name,
             'address' => $request->address,
+            'user_id' => auth()->id(),
         ]);
         return redirect()->route('shops.index')->with('success', 'Магазин "' . $request->name . '" успешно добавлен');
     }
@@ -70,7 +71,7 @@ class ShopController extends Controller
             'display_name' => $request->display_name,
             'address' => $request->address,
         ]);
-        return redirect()->route('shops.index')->with('success', 'Магазин "' . $request->name . '" успешно обновлен');
+        return redirect()->route('shops.show', $shop->id)->with('success', 'Магазин "' . $request->name . '" успешно обновлен');
     }
 
     public function delete(string $id)

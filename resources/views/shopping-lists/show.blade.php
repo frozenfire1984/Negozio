@@ -10,7 +10,18 @@
         
         <strong>{{ $list->name }}</strong>
         
+        @if(session('success'))
+            <div class="flash-msg">{{ session('success') }}</div>
+        @endif
+        
         <hr>
+        
+        @if($list->shop)
+            <dl>
+                <dt>Магазин:</dt>
+                <dd>{{ $list->shop->display_name ?? $list->shop->name }}</dd>
+            </dl>
+        @endif
         
         @if($list->notes)
             <dl>

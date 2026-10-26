@@ -11,6 +11,10 @@
                 <li class="s-list__item">
                     <a class="s-list__link" href="{{ route('shopping-lists.show', ['id' => $list->id]) }}">
                         {{ $list->name }}
+                        
+                        @if($list->shop)
+                           <small>({{ $list->shop?->display_name ?? $list->shop->name }})</small>
+                        @endif
                     </a>
                 </li>
             @empty

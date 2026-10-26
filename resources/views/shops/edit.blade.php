@@ -38,7 +38,7 @@
                 
                 <div class="btn-group">
                     <button class="btn" type="submit">Сохранить</button>
-                    <a class="btn btn_wire" href="{{ url()->previous() }}">Отмена</a>
+                    <a class="btn btn_wire" href="{{ route('shops.index') }}">Отмена</a>
                 </div>
             </fieldset>
         </form>

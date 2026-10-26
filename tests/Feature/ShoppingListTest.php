@@ -20,7 +20,6 @@ class ShoppingListTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
-
     #[TestDox('Create list with empty name and get error')]
     public function test_create_list_with_empty_name_and_get_error(): void
     {

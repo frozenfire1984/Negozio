@@ -38,4 +38,8 @@ class User extends Authenticatable
     public function categories(): HasMany {
         return $this->hasMany(Category::class, 'private_of_user_id');
     }
+
+    public function shops(): HasMany {
+        return $this->hasMany(Shop::class);
+    }
 }

@@ -1,11 +1,9 @@
 <x-site-layout>
     <div>
         <form class="form-container" method="POST" action="{{ route('shopping-lists.store') }}">
+            @csrf
             <fieldset class="form-fieldset">
-                
                 <legend class="form-fieldset__title">Новый список покупок</legend>
-                
-                @csrf
                 
                 <div class="form-row">
                     <label for="name">Имя</label>
@@ -19,6 +17,25 @@
                         <option>Список покупок для </option>
                     </datalist>
                 </div>
+                
+                @if($shops->isNotEmpty())
+                    <div class="form-row">
+                        <label for="shop_id">Магазин</label>
+                        
+                        <select class="form-input" id="shop_id" name="shop_id">
+                            <option value="">Без магазина</option>
+                            @foreach($shops as $shop)
+                                <option value="{{$shop->id}}" {{ $shop->id == old('shop_id') ? 'selected' : null }}>
+                                    {{ $shop->display_name ?? $shop->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        
+                        @error('shop_id')
+                            <div class="form-err">{{ $message }}</div>
+                        @enderror
+                    </div>
+                @endif
                 
                 <div class="form-row">
                     <label for="notes">Заметки</label>
