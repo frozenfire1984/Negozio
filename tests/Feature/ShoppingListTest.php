@@ -8,6 +8,7 @@ use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\ShoppingList;
+use App\Models\Shop;
 
 class ShoppingListTest extends TestCase
 {
@@ -113,7 +114,7 @@ class ShoppingListTest extends TestCase
             'notes' => 'Don\'t forget take package bag'
         ]);
 
-        $response->assertRedirect(route('shopping-lists.index'));
+        $response->assertRedirect(route('shopping-lists.show', $list->id));
     }
 
     #[TestDox('User create list and remove them')]
@@ -136,7 +137,14 @@ class ShoppingListTest extends TestCase
             'id' => $list->id,
         ]);
 
+        $this->app['session']->forget('success');
+
         $response = $this->actingAs($user)->get('/shopping-lists');
+
+        $response->assertViewHas('lists', function ($lists) use ($list) {
+            return ! $lists->contains('id', $list->id);
+        });
+
         $response->assertStatus(200);
         $response->assertDontSee('Shopping list for Lidl shop');
     }
@@ -221,7 +229,7 @@ class ShoppingListTest extends TestCase
     }
 
 
-    #[TestDox('Attacker dont delete alien shopping list')]
+    #[TestDox('Attacker don\'t delete alien shopping list')]
     public function test_attacker_dont_delete_alien_shopping_list(): void
     {
         $user = User::factory()->create();
@@ -244,5 +252,68 @@ class ShoppingListTest extends TestCase
             'notes' => 'Don\'t forget take discount card'
         ]);
         $this->actingAs($user)->get(route('shopping-lists.index'))->assertSee('Shopping list for Lidl shop');
+    }
+
+    #[TestDox('Attacker don\'t assign alien shop while create shopping list')]
+    public function test_attacker_dont_assign_alien_shop_while_create_shopping_list(): void
+    {
+        $user = User::factory()->create();
+        $userShop = Shop::factory()->create([
+            'user_id' => $user->id,
+            'name' => 'Lidl',
+        ]);
+
+        $userAttacker = User::factory()->create();
+
+        $response = $this->actingAs($userAttacker)->post(route('shopping-lists.store'),
+            [
+                'name' => 'Shopping list of attacker',
+                'shop_id' => $userShop->id,
+            ]);
+        $response->assertSessionHasErrors('shop_id');
+        $this->assertDatabaseCount('shopping_lists', 0);
+
+    }
+
+    #[TestDox('Attacker don\'t assign alien shop while edit shopping list')]
+    public function test_attacker_dont_assign_alien_shop_while_edit_shopping_list(): void
+    {
+        $user = User::factory()->create();
+        $userShop = Shop::factory()->create([
+            'user_id' => $user->id,
+            'name' => 'Lidl',
+        ]);
+
+        $userAttacker = User::factory()->create();
+
+        $listOfAttacker = ShoppingList::factory()->create([
+            'user_id' => $userAttacker->id,
+            'name' => 'Shopping list of attacker',
+            'notes' => null,
+        ]);
+
+        $this->assertDatabaseHas('shopping_lists', [
+            'id' => $listOfAttacker->id,
+            'user_id' => $userAttacker->id,
+            'name' => 'Shopping list of attacker',
+            'notes' => null,
+        ]);
+
+        $response = $this->actingAs($userAttacker)->put(route('shopping-lists.update', $listOfAttacker->id),
+            [
+                'name' => 'Shopping list of attacker [changed]',
+                'shop_id' => $userShop->id,
+                'notes' => 'this list have alien shop!'
+            ]);
+
+        $response->assertSessionHasErrors('shop_id');
+
+        $this->assertDatabaseHas('shopping_lists', [
+            'id' => $listOfAttacker->id,
+            'user_id' => $userAttacker->id,
+            'name' => 'Shopping list of attacker',
+            'shop_id' => null,
+            'notes' => null,
+        ]);
     }
 }
