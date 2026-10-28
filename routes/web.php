@@ -6,8 +6,8 @@ use App\Http\Controllers\ShoppingListController;
 use App\Http\Controllers\ShopController;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('home');
+})->name('home');;
 
 Route::prefix('/shopping-lists')->middleware('auth')->group(function() {
     Route::get('/', [ShoppingListController::class, 'index'])->name('shopping-lists.index');

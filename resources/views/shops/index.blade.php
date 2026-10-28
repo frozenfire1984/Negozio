@@ -1,4 +1,4 @@
-<x-site-layout>
+<x-main-layout>
     <div class="stack">
         <a class="btn" href="{{ route('shops.create') }}">Создать магазин</a>
         
@@ -18,4 +18,4 @@
             @endforelse
         </ul>
     </div>
-</x-site-layout>
+</x-main-layout>

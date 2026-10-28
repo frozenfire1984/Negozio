@@ -1,4 +1,4 @@
-<x-site-layout>
+<x-main-layout>
     <div class="stack">
         <div class="btn-group">
             <a class="btn" href="{{ route('shopping-lists.edit', ['id' => $list->id ]) }}">Редактировать список покупок</a>
@@ -30,4 +30,4 @@
             </dl>
         @endif
     </div>
-</x-site-layout>
+</x-main-layout>

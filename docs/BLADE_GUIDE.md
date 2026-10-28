@@ -53,7 +53,7 @@ Blade — шаблонизатор Laravel. Файл `*.blade.php` содерж�
 Шаблоны находятся в `resources/views`. Точки в имени view обозначают вложенные папки:
 
 ```php
-return view('welcome');       // resources/views/welcome.blade.php
+return view('home');       // resources/views/home.blade.php
 return view('profile.edit');  // resources/views/profile/edit.blade.php
 return view('auth.login');    // resources/views/auth/login.blade.php
 ```

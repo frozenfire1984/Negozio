@@ -1,4 +1,4 @@
-<x-site-layout>
+<x-main-layout>
     <div>
         <form class="form-container" method="POST" action="{{ route('shopping-lists.store') }}">
             @csrf
@@ -53,4 +53,4 @@
             </fieldset>
         </form>
     </div>
-</x-site-layout>
+</x-main-layout>

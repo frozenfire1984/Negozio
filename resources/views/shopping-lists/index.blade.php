@@ -1,4 +1,4 @@
-<x-site-layout>
+<x-main-layout>
     <div class="stack">
         <a class="btn" href="{{ route('shopping-lists.create') }}">Создать новый список покупок</a>
         
@@ -22,4 +22,4 @@
             @endforelse
         </ul>
     </div>
-</x-site-layout>
+</x-main-layout>

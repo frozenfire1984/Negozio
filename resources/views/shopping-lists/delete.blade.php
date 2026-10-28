@@ -1,4 +1,4 @@
-<x-site-layout>
+<x-main-layout>
     <div class="stack">
         <strong>Удалить <em>"{{ $list->name }}"</em>?</strong>
         
@@ -11,4 +11,4 @@
             </div>
         </form>
     </div>
-</x-site-layout>
+</x-main-layout>
