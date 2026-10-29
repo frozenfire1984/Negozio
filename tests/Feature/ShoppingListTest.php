@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
 use App\Models\User;
@@ -195,8 +194,8 @@ class ShoppingListTest extends TestCase
         $response->assertDontSee('Shopping list for Lidl shop');
     }
 
-    #[TestDox('Attacker dont steal alien shopping list')]
-    public function test_attacker_dont_steal_alien_shopping_list(): void
+    #[TestDox('Attacker dont edit alien shopping list')]
+    public function test_attacker_dont_edit_alien_shopping_list(): void
     {
         $user = User::factory()->create();
         $list = ShoppingList::factory()->create([

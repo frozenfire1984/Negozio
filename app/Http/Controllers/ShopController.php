@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Shop;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ShopController extends Controller
 {
@@ -19,6 +20,8 @@ class ShopController extends Controller
     public function show(string $id)
     {
         $shop = Shop::findOrFail($id);
+
+        Gate::authorize('show', $shop);
 
         return view('shops.show', compact('shop'));
     }
@@ -52,6 +55,8 @@ class ShopController extends Controller
     {
         $shop = Shop::findOrFail($id);
 
+        Gate::authorize('update', $shop);
+
         return view('shops.edit', compact('shop'));
     }
 
@@ -59,6 +64,8 @@ class ShopController extends Controller
     public function update(Request $request, string $id)
     {
         $shop = Shop::findOrFail($id);
+
+        Gate::authorize('update', $shop);
 
         $request->validate([
             'name' => 'required|string|min:2|max:50',
@@ -78,6 +85,8 @@ class ShopController extends Controller
     {
         $shop = Shop::findOrFail($id);
 
+        Gate::authorize('delete', $shop);
+
         return view('shops.delete', compact('shop'));
     }
 
@@ -86,6 +95,8 @@ class ShopController extends Controller
     {
         $shop = Shop::findOrFail($id);
         $shop_name = $shop->name;
+
+        Gate::authorize('delete', $shop);
 
         $shop->delete();
 

@@ -21,6 +21,8 @@ class ShopFactory extends Factory
         return [
             'user_id' => User::factory(),
             'name' => $this->faker->word(),
+            'display_name' => $this->faker->sentence(3),
+            'address' => $this->faker->streetAddress(),
         ];
     }
 }
