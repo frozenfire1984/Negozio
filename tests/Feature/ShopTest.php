@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\ShoppingList;
 use App\Models\User;
 use App\Models\Shop;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -156,6 +157,50 @@ class ShopTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertDontSee('Maxi near my home');
+    }
+
+    #[TestDox('User remove shop which has related shopping list')]
+    public function test_user_remove_shop_which_has_related_shopping_list(): void
+    {
+        $user = User::factory()->create();
+        $shop = Shop::factory()->create([
+            'user_id' => $user->id,
+            'name' => 'Lidl',
+            'display_name' => 'Lidl near my home',
+        ]);
+
+        $list = ShoppingList::factory()->create([
+            'user_id' => $user->id,
+            'name' => 'Shopping list for Lidl shop',
+            'shop_id' => $shop->id,
+        ]);
+
+
+        $response = $this->actingAs($user)->get(route('shops.delete', $shop->id));
+        $response->assertStatus(200);
+        $response->assertSee('К этому магазину привязаны следующие списки покупок:');
+        $response->assertSee('Shopping list for Lidl shop');
+
+        $response = $this->actingAs($user)->delete(
+            route('shops.destroy', $shop->id),
+            ['confirmed_list_ids' => [(string) $list->id]]
+        );
+        $response->assertStatus(302);
+        $response->assertRedirect(route('shops.index'));
+
+
+
+        $this->assertDatabaseHas('shopping_lists', [
+            'id' => $list->id,
+            'user_id' => $user->id,
+            'name' => 'Shopping list for Lidl shop',
+            'shop_id' => null,
+        ]);
+
+        $this->assertDatabaseMissing('shops', [
+            'id' => $shop->id,
+        ]);
+
     }
 
     #[TestDox('Attacker dont see alien shop')]

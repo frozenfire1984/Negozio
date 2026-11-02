@@ -19,6 +19,10 @@ a:not(.btn) {
   gap: .75rem;
   padding-left: 1rem;
 
+  &_min-gap {
+    gap: .2rem;
+  }
+
   li::marker {
     color: var(--color-accent);
   }
@@ -82,8 +86,15 @@ a:not(.btn) {
 hr {
   border-top: 1px var(--color-border-soft) solid;
   border-bottom: none;
+  margin-inline: unset;
 }
 
-dl dt {
-  font-weight: 700;
+dl {
+  dt {
+    font-weight: 700;
+  }
+
+  dd {
+    margin-left: 0;
+  }
 }

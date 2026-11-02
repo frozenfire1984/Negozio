@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Shop;
+use App\Models\ShoppingList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -87,16 +88,42 @@ class ShopController extends Controller
 
         Gate::authorize('delete', $shop);
 
-        return view('shops.delete', compact('shop'));
+        $related_lists = ShoppingList::where('shop_id', $id)->get();
+
+        return view('shops.delete', compact('shop', 'related_lists'));
     }
 
 
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
         $shop = Shop::findOrFail($id);
         $shop_name = $shop->name;
 
         Gate::authorize('delete', $shop);
+
+        $related_lists = ShoppingList::where('shop_id', $id)->get();
+        $related_lists_id = [];
+
+        foreach ($related_lists as $item) {
+            $related_lists_id[] = (string)$item->id;
+        }
+        sort($related_lists_id);
+
+        $request->validate([
+            'confirmed_list_ids' => 'sometimes|array',
+            'confirmed_list_ids.*' => 'integer',
+        ]);
+
+        $confirmed_list_ids = $request->input('confirmed_list_ids', []);
+        sort($confirmed_list_ids);
+
+        debug($confirmed_list_ids);
+        debug($related_lists_id);
+
+        if ($related_lists_id !== $confirmed_list_ids) {
+            return redirect()->route('shops.delete', $shop->id)->with('success',
+                'Список связанных с этим магазином списков покупок изменился. Проверьте его и подтвердите удаление ещё раз');
+        }
 
         $shop->delete();
 
