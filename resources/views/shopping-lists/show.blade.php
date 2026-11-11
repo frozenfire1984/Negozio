@@ -4,6 +4,7 @@
             <a class="btn" href="{{ route('shopping-lists.edit', ['id' => $list->id ]) }}">Редактировать список покупок</a>
             <a class="btn btn_wire" href="{{ route('shopping-lists.delete', ['id' => $list->id ]) }}">Удалить список покупок</a>
             <a class="btn btn_wire" href="{{ route('shopping-lists.index') }}">Обратно к спискам покупок</a>
+            <a class="btn btn_wire" href="{{ route('items.index', ['shopping_list_id' => $list->id ]) }}">Список товаров</a>
         </div>
         
         <hr>

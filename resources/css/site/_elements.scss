@@ -13,6 +13,13 @@ a:not(.btn) {
   padding-inline: 12px;
 }
 
+.page-title {
+  font-size: 1.1rem;
+  margin-block: .5em;
+  padding-bottom: .5em;
+  border-bottom: 1px var(--color-pale) solid;
+}
+
 .list {
   display: flex;
   flex-direction: column;

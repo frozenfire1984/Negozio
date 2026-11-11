@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShoppingListController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\ItemController;
 
 Route::get('/', function () {
     return view('home');
@@ -29,6 +30,19 @@ Route::prefix('/shops')->middleware('auth')->group(function() {
     Route::put('/{id}', [ShopController::class, 'update'])->name('shops.update');
     Route::get('/{id}/delete', [ShopController::class, 'delete'])->name('shops.delete');
     Route::delete('/{id}', [ShopController::class, 'destroy'])->name('shops.destroy');
+});
+
+Route::prefix('/items')->middleware('auth')->group(function() {
+    Route::get('/{shopping_list_id}', [ItemController::class, 'index'])->name('items.index');
+    Route::get('/{id}/show', [ItemController::class, 'show'])->name('items.show');
+    Route::get('/{shopping_list_id}/create', [ItemController::class, 'create'])->name('items.create');
+    Route::post('/{shopping_list_id}/', [ItemController::class, 'store'])->name('items.store');
+    Route::get('/{id}/edit', [ItemController::class, 'edit'])->name('items.edit');
+    Route::put('/{id}', [ItemController::class, 'update'])->name('items.update');
+    Route::get('/{id}/transfer_view', [ItemController::class, 'transfer_view'])->name('items.transfer_view');
+    Route::put('/{id}/transfer', [ItemController::class, 'transfer'])->name('items.transfer');
+    Route::get('/{id}/delete', [ItemController::class, 'delete'])->name('items.delete');
+    Route::delete('/{id}', [ItemController::class, 'destroy'])->name('items.destroy');
 });
 
 Route::get('/dashboard', function () {
