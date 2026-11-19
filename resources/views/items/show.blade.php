@@ -1,39 +1,38 @@
 <x-main-layout>
     <div class="stack">
+        <h1 class="page-title">Товар <em>"{{ $item->name }}"</em></h1>
+        
         <div class="btn-group">
             <a class="btn" href="{{ route('items.edit', ['id' => $item->id ]) }}">Редактировать товар</a>
+            <a class="btn" href="{{ route('items.transfer', ['id' => $item->id ]) }}">Перенести в другой список</a>
             <a class="btn btn_wire" href="{{ route('items.delete', ['id' => $item->id ]) }}">Удалить товар</a>
             {{--<a class="btn btn_wire" href="{{ route('items.index') }}">Обратно в список товаров</a>--}}
         </div>
         
         <hr>
         
-        <h1 class="page-title">{{ $item->name }}</h1>
-        
         @if(session('success'))
             <div class="flash-msg">{{ session('success') }}</div>
         @endif
         
-       
-        
-        @if($item->notes)
-            <dl>
+        @if($item->note)
+            <dl class="dl-flex">
                 <dt>Заметки:</dt>
                 <dd>{{ $item->note }}</dd>
             </dl>
         @endif
         
-        @if($item->shoppingList)
-            <dl>
+        @if($list)
+            <dl class="dl-flex">
                 <dt>Список:</dt>
-                <dd>{{ $item->shoppingList->name }}</dd>
+                <dd>{{ $list->name }}</dd>
             </dl>
         @endif
         
-        @if($shop)
-            <dl>
+        @if($shop_name)
+            <dl class="dl-flex">
                 <dt>Магазин:</dt>
-                <dd>{{ $shop->display_name ?? $shop->name }}</dd>
+                <dd>{{ $shop_name }}</dd>
             </dl>
         @endif
     </div>

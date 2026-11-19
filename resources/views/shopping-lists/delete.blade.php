@@ -1,6 +1,6 @@
 <x-main-layout>
     <div class="stack">
-        <strong>Удалить <em>"{{ $list->name }}"</em>?</strong>
+        <h1 class="page-title">Удалить <em>"{{ $list->name }}"</em>?</h1>
         
         <form method="POST" action="{{ route('shopping-lists.destroy', ['id' => $list->id]) }}">
             @csrf

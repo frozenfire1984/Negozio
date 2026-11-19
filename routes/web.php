@@ -39,8 +39,8 @@ Route::prefix('/items')->middleware('auth')->group(function() {
     Route::post('/{shopping_list_id}/', [ItemController::class, 'store'])->name('items.store');
     Route::get('/{id}/edit', [ItemController::class, 'edit'])->name('items.edit');
     Route::put('/{id}', [ItemController::class, 'update'])->name('items.update');
-    Route::get('/{id}/transfer_view', [ItemController::class, 'transfer_view'])->name('items.transfer_view');
-    Route::put('/{id}/transfer', [ItemController::class, 'transfer'])->name('items.transfer');
+    Route::get('/{id}/transfer', [ItemController::class, 'transfer'])->name('items.transfer');
+    Route::put('/{id}/transfer_update', [ItemController::class, 'transfer_update'])->name('items.transfer_update');
     Route::get('/{id}/delete', [ItemController::class, 'delete'])->name('items.delete');
     Route::delete('/{id}', [ItemController::class, 'destroy'])->name('items.destroy');
 });

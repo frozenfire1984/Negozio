@@ -1,26 +1,37 @@
 <x-main-layout>
     <div class="stack">
+        <h1 class="page-title">Товары из <em>"{{ $list->name }}"</em></h1>
         
-        <h1 class="page-title">{{ $list->name }}</h1>
+        <div class="btn-group">
+            <a class="btn btn_wire" href="{{ route('shopping-lists.show', ['id' => $list->id ]) }}">← Обратно к списку</a>
+            <a class="btn" href="{{ route('items.create', ['shopping_list_id' => $list->id ]) }}">Создать товар</a>
+        </div>
+        
+        <hr>
         
         @if(session('success'))
             <div class="flash-msg">{{ session('success') }}</div>
         @endif
         
-        @if($list->shop)
-            Магазин: {{ $list->shop?->display_name ?? $list->shop->name }}
-        @endif
-        
-        <ul class="list">
-            @forelse($items as $item)
-                <li class="s-list__item">
-                    <a class="s-list__link" href="{{ route('items.show', ['id' => $item->id]) }}">
-                        {{ $item->name }}
-                    </a>
-                </li>
-            @empty
-                <li>Список покупок пуст</li>
-            @endforelse
-        </ul>
+        <section>
+            @if($list->shop)
+                <dl class="dl-flex">
+                    <dt>Магазин:</dt>
+                    <dd>{{ $list->shop?->display_name ?? $list->shop->name }}</dd>
+                </dl>
+            @endif
+            
+            <ul class="list">
+                @forelse($items as $item)
+                    <li class="s-list__item">
+                        <a class="s-list__link" href="{{ route('items.show', ['id' => $item->id]) }}">
+                            {{ $item->name }}
+                        </a>
+                    </li>
+                @empty
+                    <li>Список покупок пуст</li>
+                @endforelse
+            </ul>
+        </section>
     </div>
 </x-main-layout>

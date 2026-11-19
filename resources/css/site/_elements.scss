@@ -15,9 +15,20 @@ a:not(.btn) {
 
 .page-title {
   font-size: 1.1rem;
-  margin-block: .5em;
-  padding-bottom: .5em;
+  margin-block: 1em;
+  padding-bottom: 1em;
   border-bottom: 1px var(--color-pale) solid;
+
+  b, strong {
+    font-weight: 900;
+  }
+}
+
+.page-sub-title {
+  @extend .page-title;
+  padding-bottom: 0;
+  border-bottom: none;
+  font-size: 1rem;
 }
 
 .list {
@@ -40,6 +51,11 @@ a:not(.btn) {
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 8px;
+}
+
+.dl-flex {
+  @extend .btn-group;
+  margin-top: 0;
 }
 
 .btn {

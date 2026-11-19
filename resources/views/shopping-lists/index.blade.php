@@ -1,6 +1,10 @@
 <x-main-layout>
     <div class="stack">
-        <a class="btn" href="{{ route('shopping-lists.create') }}">Создать новый список покупок</a>
+        <h1 class="page-title">Списки</h1>
+        
+        <div class="btn-group">
+            <a class="btn" href="{{ route('shopping-lists.create') }}">Создать новый список покупок</a>
+        </div>
         
         @if(session('success'))
             <div class="flash-msg">{{ session('success') }}</div>

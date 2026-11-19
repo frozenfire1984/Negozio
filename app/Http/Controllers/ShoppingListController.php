@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use Illuminate\Http\Request;
 use App\Models\ShoppingList;
 use App\Models\Shop;
@@ -21,10 +22,11 @@ class ShoppingListController extends Controller
     public function show(string $id)
     {
         $list = ShoppingList::findOrFail($id);
+        $items = Item::where('shopping_list_id', $list->id)->latest()->take(5)->get();
 
         Gate::authorize('show', $list);
 
-        return view('shopping-lists.show', compact('list'));
+        return view('shopping-lists.show', compact('list', 'items'));
     }
 
 
