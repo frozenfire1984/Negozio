@@ -14,8 +14,9 @@ class ItemController extends Controller
 
     public function index(Request $request)
     {
-        $items = Item::where('shopping_list_id', $request->shopping_list_id)->get();
         $list = ShoppingList::with('shop')->findOrFail($request->shopping_list_id);
+        Gate::authorize('index', [Item::class, $list]);
+        $items = Item::where('shopping_list_id', $request->shopping_list_id)->get();
 
         $count = $items->count();
         return view('items.index', compact('items', 'list', 'count'));
@@ -25,6 +26,8 @@ class ItemController extends Controller
     {
         $item = Item::with('shoppingList')->findOrFail($id);
         $list = $item->shoppingList;
+
+        Gate::authorize('show', $item);
 
         $shop_name = "";
 
@@ -40,6 +43,8 @@ class ItemController extends Controller
     {
         $list = ShoppingList::with('shop')->findOrFail($shopping_list_id);
 
+        Gate::authorize('create', [Item::class, $list]);
+
         $shop_name = "";
 
         if ($list->shop) {
@@ -52,6 +57,9 @@ class ItemController extends Controller
 
     public function store(Request $request, string $shopping_list_id)
     {
+        $list = ShoppingList::with('shop')->findOrFail($shopping_list_id);
+        Gate::authorize('create', [Item::class, $list]);
+
         $request->validate([
             'name' => 'required|string|min:2|max:50',
             'note' => 'nullable|string|max:200',
@@ -59,7 +67,7 @@ class ItemController extends Controller
 
         Item::create([
             'name' => $request->name,
-            'note' => $request->notes,
+            'note' => $request->note,
             'shopping_list_id' => $shopping_list_id,
         ]);
         return redirect()->route('items.index', ['shopping_list_id' => $shopping_list_id ])->with('success', 'товар "' . $request->name . '" успешно добавлен');
@@ -68,6 +76,8 @@ class ItemController extends Controller
     public function edit(string $id)
     {
         $item = Item::with('shoppingList')->findOrFail($id);
+        Gate::authorize('update', $item);
+
         $list = $item->shoppingList;
 
         $shop_name = "";
@@ -84,8 +94,9 @@ class ItemController extends Controller
     public function update(Request $request, string $id)
     {
         $item = Item::with('shoppingList')->findOrFail($id);
-        $list = $item->shoppingList;
+        Gate::authorize('update', $item);
 
+        $list = $item->shoppingList;
 
         $request->validate([
             'name' => 'required|string|min:2|max:50',
@@ -94,7 +105,7 @@ class ItemController extends Controller
 
         $item->update([
             'name' => $request->name,
-            'note' => $request->notes,
+            'note' => $request->note,
         ]);
         return redirect()->route('items.index', ['shopping_list_id' => $list->id ])->with('success', 'товар "' . $request->name . '" успешно обновлен');
     }
@@ -102,6 +113,8 @@ class ItemController extends Controller
     public function transfer(string $id)
     {
         $item = Item::with('shoppingList')->findOrFail($id);
+        Gate::authorize('transfer', $item);
+
         $current_list = $item->shoppingList;
         $lists = ShoppingList::with('shop')
             ->where('user_id', auth()->id())
@@ -121,6 +134,8 @@ class ItemController extends Controller
     public function transfer_update(Request $request, string $id)
     {
         $item = Item::with('shoppingList')->findOrFail($id);
+        Gate::authorize('transfer', $item);
+
         $old_list = $item->shoppingList;
 
         $request->validate([
@@ -147,6 +162,8 @@ MSG;
     public function delete(string $id)
     {
         $item = Item::with('shoppingList')->findOrFail($id);
+        Gate::authorize('delete', $item);
+
         $list = $item->shoppingList;
 
         $shop_name = "";
@@ -162,6 +179,8 @@ MSG;
     public function destroy(string $id)
     {
         $item = Item::findOrFail($id);
+        Gate::authorize('delete', $item);
+
         $item_name = $item->name;
         $list = $item->shoppingList;
 
